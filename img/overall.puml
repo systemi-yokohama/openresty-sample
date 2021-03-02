@@ -1,0 +1,17 @@
+@startuml overall
+
+left to right direction
+skinparam packageStyle rectangle
+actor Browser
+rectangle "Docker Container" {
+  (Lua script) <.. (Nginx) : (6) Run Lua script
+  (Lua script) .> (Nginx) : (7) Filtered
+  Browser <-- (Nginx) : (8) Response filtered data
+  Browser -> (Node.js) : (1) Request to port 3000
+  Browser <- (Node.js) : (2) Response row data
+  Browser -> (Nginx) : (3) Request to port 8080
+  (Nginx) ..> (Node.js) : (4) Request
+  (Nginx) <. (Node.js) : (5) Response
+}
+
+@enduml
